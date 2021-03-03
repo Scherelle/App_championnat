@@ -1,0 +1,20 @@
+PHPUnit 9.5.1 by Sebastian Bergmann and contributors.
+
+Warning:       Your XML configuration validates against a deprecated schema.
+Suggestion:    Migrate your XML configuration using "--migrate-configuration"!
+
+.........................F.........................               51 / 51 (100%)
+
+Time: 00:01.035, Memory: 26.00 MB
+
+There was 1 failure:
+
+1) Tests\Unit\ControllerFormTest::testStoreMatchRedirectsIfRepositoryThrowsException
+Expected status code 302 but received 500.
+Failed asserting that false is true.
+
+/Users/celiaschererelleboumbandakoyo/web_cci/vendor/laravel/framework/src/Illuminate/Foundation/Testing/TestResponse.php:186
+/Users/celiaschererelleboumbandakoyo/web_cci/tests/Unit/FormTest.php:255
+
+FAILURES!
+Tests: 51, Assertions: 348, Failures: 1.
