@@ -153,9 +153,13 @@ class Controller extends BaseController
     }
 
 
-    public function deleteMatch(Request $request, int $match_id):void {
-        if($request-session()->has('user'))
-           $this->repository->deleteMatch($match_id);
+    public function deleteMatch(Request $request, int $match_id){
+        if(!$request-session()->has('user')) 
+            return redirect()->route('login');
+        $this->repository->deleteMatch($match_id);
+        return redirect()->route('ranking.show');
+
+
 
     }
 
@@ -165,8 +169,10 @@ class Controller extends BaseController
         return redirect()->route('login');
     }
     public function  storeUser(Request $request){
+        if(!$request->session()->has('user'))
+          return redirect()->route('login');
         $rules = [
-            'email' => ['required', 'email', 'exists:users,email'],
+            'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required']
         ];
         $messages = [
@@ -174,6 +180,7 @@ class Controller extends BaseController
             'email.email' => 'Vous devez saisir un e-mail valide.',
             'email.exists' => "Cet utilisateur n'existe pas.",
             'password.required' => "Vous devez saisir un mot de passe.",
+            'email.unique' => "Ce utilisateur existe déjà."
         ];
         $validatedData = $request->validate($rules, $messages) ;
         try{
@@ -181,12 +188,18 @@ class Controller extends BaseController
         } catch (Exception $e){
             return redirect()->back()->withInput()->withErrors("Impossible de vous enregistrer comme utilisateur");
         }
-        return redirect()->route('show.ranking') ;
+        return redirect()->route('ranking.show') ;
     }
 
-    public function changePassword (Request $request) {
-        
+    public function getPasswordForm(Request $request) {
+        if($request->session()->has('user'))
+            return view('passwordform') ;
     }
+
+    // public function changePassword (Request $request) {
+    //     $validatedData = $request->validate($rules, $messages) ;
+    //     if()
+    // }
 
 
 

@@ -25,3 +25,5 @@ Route::get('/teams/{teamId}/follow', [Controller::class, 'followTeam'])->where('
 Route::POST('/logout', [Controller::class, 'logout'])->name('logout');
 Route::get('/user/create', [Controller::class, 'createUser'])->name('user.create');
 Route::POST('/user/store', [Controller::class, 'storeUser'])->name('user.store');
+Route::get('login/password', [Controller::class, 'getPasswordForm'])->name('password.form');
+Route::POST('login/password', [Controller::class, 'changePassword'])->name('password.change');
