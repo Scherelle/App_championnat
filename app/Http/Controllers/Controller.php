@@ -192,14 +192,38 @@ class Controller extends BaseController
     }
 
     public function getPasswordForm(Request $request) {
-        if($request->session()->has('user'))
-            return view('passwordform') ;
+        if(!$request->session()->has('user'))
+            return redirect()->route('login') ;
+        return view('passwordform') ;
     }
 
-    // public function changePassword (Request $request) {
-    //     $validatedData = $request->validate($rules, $messages) ;
-    //     if()
-    // }
+    public function changePassword (Request $request) {
+        if(!$request->session()->has('user'))
+            return redirect()->route('login') ; 
+        $rules = [
+            'email' => ['email','exists:users,email'],
+            'old_password' => ['required'],
+            'new_password' => ['required', 'distinct:old_password'],
+            'password' => ['same:new_password'],
+        ];
+        $messages = [
+            'email.required' => 'Vous devez saisir un e-mail.',
+            'email.email' => 'Vous devez saisir un e-mail valide.',
+            'email.exists' => "Cet utilisateur n'existe pas.",
+            'old_password.required' => "Vous devez saisir un mot de passe.",
+            'new_password.required' => "Vous devez saisir un mot de passe",
+            'new_password.distinct' => "Le mot de passe doit être différent du précédent.",
+            'password.same'=>"ce mot de passe ne match pas avec le précédent"
+        ];
+        $validatedData = $request->validate($rules, $messages) ;
+        try {
+            $this->repository->changePassword($validatedData['email'], $validatedData['old_password'],$validatedData['new_password']) ;
+        } catch (Exception $e){
+            return redirect()->back()->withInput()->withErrors("Votre mot de passe n'a pas pu être modifié");
+        }
+
+        return redirect()->route('ranking.show');
+    }
 
 
 

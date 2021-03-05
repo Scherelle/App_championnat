@@ -32,5 +32,6 @@
     </div>
     <button type="submit" class="btn btn-primary">Connexion</button>
     <a class="btn btn-primary" href="{{route('user.create')}}">Créer un Compte</a><br><br>
+    <a class="btn btn-primary" href="{{route('password.form')}}">Changer de mot de passe</a><br><br>
 </form>
 @endsection

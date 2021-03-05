@@ -11,10 +11,19 @@
         </div>
     @endif
     <div class="form-group">
-      <label for="old_password">Ancien mot de passe</label>
-      <input type="password" id="old_password" name="email" value=""
-             aria-describedby="old_password_feedback" class="form-control @error('old_password') is-invalid @enderror"> 
+      <label for="email">E-mail</label>
+      <input type="email" id="email" name="email" value="{{old('email')}}"
+             aria-describedby="email_feedback" class="form-control @error('email') is-invalid @enderror"> 
       @error('email')
+      <div id="email_feedback" class="invalid-feedback">
+        {{ $message }}
+      </div>
+      @enderror
+    <div class="form-group">
+      <label for="old_password">Ancien mot de passe</label>
+      <input type="password" id="old_password" name="old_password" value="{{old('old_password')}}"
+             aria-describedby="old_password_feedback" class="form-control @error('old_password') is-invalid @enderror"> 
+      @error('old_password')
       <div id="old_password_feedback" class="invalid-feedback">
         {{ $message }}
       </div>
@@ -22,7 +31,7 @@
     </div>
     <div class="form-group">
       <label for="new_password">Nouveau mot de passe</label>
-      <input type="password" id="new_password" name="new_password" value=""
+      <input type="password" id="new_password" name="new_password" value="{{old('new_password')}}"
              aria-describedby="new_password_feedback" class="form-control @error('new_password') is-invalid @enderror">  
       @error('new_password')
       <div id="new_password_feedback" class="invalid-feedback">
@@ -30,11 +39,11 @@
       </div>
       @enderror
       <div class="form-group">
-      <label for="new_password">Nouveau mot de passe</label>
-      <input type="password" id="new_password" name="new_password" value=""
-             aria-describedby="new_password_feedback" class="form-control @error('new_password') is-invalid @enderror">  
-      @error('new_password')
-      <div id="new_password_feedback" class="invalid-feedback">
+      <label for="password">Confirmation</label>
+      <input type="password" id="password" name="password" value="{{old('password')}}"
+             aria-describedby="password_feedback" class="form-control @error('password') is-invalid @enderror">  
+      @error('password')
+      <div id="password_feedback" class="invalid-feedback">
         {{ $message }}
       </div>
       @enderror

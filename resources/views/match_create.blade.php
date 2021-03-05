@@ -3,7 +3,7 @@
 @section('title', 'Création d\'un match')
 
 @section('content')
-<form>
+<form method="POST" action="{{route('matches.store')}}">
 @csrf
     @if ($errors->any())
         <div class="alert alert-warning">
@@ -15,22 +15,22 @@
       <select class="form-control" id="team0" name="team0">
       <option value="0">Sélectionnez une équipe</option>
         @foreach($teams as $team)
-        <option value="{{$team['id']}}">{{$team['name']}}</option>
+        <option value="{{$team['id']}}" @if(old('team0')==$team['id']) selected @endif>{{$team['name']}}</option>
         @endforeach
       </select>
     </div>
     <div class="form-group">
       <label for="team1">Équipe à l'extérieur</label>
       <select class="form-control" id="team1" name="team1">
-      <option value="0">Sélectionnez une équipe</option>
+      <option value="0" selected>Sélectionnez une équipe</option>
         @foreach($teams as $team)
-        <option value="{{$team['id']}}">{{$team['name']}}</option>
+        <option value="{{$team['id']}}" @if (old('team1')==$team['id']) selected @endif>{{$team['name']}}</option>
         @endforeach
       </select>
     </div>
     <div class="form-group">
       <label for="date">Date</label>
-      <input type="date" id="date" name="date"  aria-describedby="date_feedback" class="form-control @error('date') is-invalid @enderror" required>
+      <input type="date" id="date" name="date"  aria-describedby="date_feedback" class="form-control @error('date') is-invalid @enderror" value="{{old('date')}}" required>
       @error('date') 
       <div id="date_feedback" class="invalid-feedback">
       {{$messages}}

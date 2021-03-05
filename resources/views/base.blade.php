@@ -12,7 +12,7 @@
                     <a class="p-2 text-dark" href="/">Classement</a>
                 </nav>
                 @if (session()->has('user'))
-                    <form method="POST" action="route{{'logout'}}">
+                    <form method="POST" action="{{route('logout')}}">
                         @csrf
                         <div class="btn-group">
                             <a class="btn btn-outline-danger" href="{{route('teams.create')}}">Créer une équipe</a>
